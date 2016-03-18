@@ -166,12 +166,12 @@ namespace PC_Volume_Controller
       };
     }
 
-    private AudioDevice GetDefaultPlaybackDevice()
+    public AudioDevice GetDefaultPlaybackDevice()
 		{
 			return GetCurrentDevice();
 		}
 
-		private HttpStatusCode SetDefaultPlaybackDevice()
+    public HttpStatusCode SetDefaultPlaybackDevice()
 		{
       AudioDevice device = this.Bind<AudioDevice>();
 
@@ -190,7 +190,7 @@ namespace PC_Volume_Controller
       return succes ? HttpStatusCode.OK : HttpStatusCode.InternalServerError;
     }
 
-    private AudioDevice GetDummyDefaultPlaybackDevice()
+    public AudioDevice GetDummyDefaultPlaybackDevice()
     {
       return new AudioDevice
       {
@@ -200,7 +200,7 @@ namespace PC_Volume_Controller
       };
     }
 
-    private HttpStatusCode SetDummyDefaultPlaybackDevice()
+    public HttpStatusCode SetDummyDefaultPlaybackDevice()
     {
       AudioDevice data = this.Bind<AudioDevice>();
 
