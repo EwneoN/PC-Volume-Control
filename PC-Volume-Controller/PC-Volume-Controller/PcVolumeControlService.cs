@@ -16,10 +16,17 @@ namespace PC_Volume_Controller
 
     #endregion
 
+
+    #region Constructors
+
     public PcVolumeControlService()
     {
       InitializeComponent();
     }
+
+    #endregion
+
+    #region Private Methods
 
     protected override void OnStart(string[] args)
     {
@@ -60,5 +67,7 @@ namespace PC_Volume_Controller
     {
       _NancyHost.Stop();
     }
+
+    #endregion
   }
 }

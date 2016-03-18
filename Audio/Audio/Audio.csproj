@@ -52,7 +52,11 @@
     <Compile Include="VolumeData.cs" />
     <Compile Include="VolumeMixer.cs" />
     <Compile Include="VolumeStructs.cs" />
-    <Compile Include="WaveOutCaps.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Native\EndPointController.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
