@@ -5,86 +5,17 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
   <script src="/Content/ng-knob.js"></script>
-  <style type="text/css">
-
-    @font-face {
-      font-family: 'spaceman';
-      src: url('/Content/spaceman.ttf') format('truetype');
-    }
-
-    body {
-      background-color: #2D2D2D;
-      background-color: rgba(45, 45, 45, 1);
-      font-family: spaceman
-    }
-
-    div.app {
-      text-align: center;
-      vertical-align: middle;
-    }
-
-    div.devices {
-      font-size: 36px;
-    }
-
-    select.devices {
-      background-color: #2D2D2D;
-      text-align: center;
-      font-family: spaceman;
-      width: 750px;
-      border-color: #212121;
-      border-width: 5px;
-      margin: auto;
-      color: #9C9C9C;
-    }
-
-    @media screen and (min-width: 1000px) {
-      
-      select.devices {
-        -webkit-appearance: none;
-        font-size: 18px;
-      }
-
-      select.devices :focus {
-        border-color: #212121;
-      }
-
-      ::-webkit-scrollbar {
-        width: 15px;
-      }
-
-      ::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-        border-radius: 10px;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        background-color: #1394BF;
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
-      }
-
-      select.devices option {
-        background-color: #2D2D2D;
-        color: #9C9C9C;
-      }
-
-      select.devices option:checked {
-        background-color: #2D2D2D;
-        color: #1394BF;
-      }
-    }
-  </style>
+  <link rel="stylesheet" type="text/css" href="/Content/site.css"></script>
   <meta charset="utf-8"/>
-  <title></title>
+  <title>PC Volume Controller</title>
 </head>
 <body>
 <script>
   var i = 0;
   var app = angular.module('PcVolumeController', ['ui.knob']);
   
-  app.controller('Volume', function ($scope, $http) {
-    $scope.value = 0;//replace this value
+  app.controller('Volume', function ($scope, $http) {    
+    $scope.value = @Model.Volume;;
 
     $scope.mouseDown = function () {
       $scope.isMouseDown = true;
@@ -95,8 +26,6 @@
     };
 
     $scope.volumeChanged = function () {
-      //document.getElementById("list").appendChild(document.createTextNode($scope.value));
-
       $http.post("Volume", {
         Volume: $scope.value
       }).then(function(response) {
@@ -106,36 +35,11 @@
       });
     };
 
-    $scope.options = {
-      skin: {
-        type: 'tron',
-        width: 10,
-        color: '#212121',
-        spaceWidth: 5
-      },
-      min: 0,
-      max: 100,
-      size: 750,
-      textColor: '#9C9C9C',
-      barColor: '#1394BF',
-      trackWidth: 40,
-      barWidth: 50,
-      animate: {
-        enabled: true,
-        duration: 375,
-        ease: "linear"
-      },
-      subText: {
-        enabled: true,
-        text: 'Volume',
-        color: 'gray',
-        font: 'auto'
-      }
-    };
+    $scope.options = @Model.KnobOptions;;
   });
 
   app.controller('DefaultPlaybackDevice', function ($scope, $http) {
-    $scope.devices = [];//replace this value
+    $scope.devices = @Model.Devices;;
     $scope.currentDevice = $scope.currentDevice;
 
     for(var i = 0; i < $scope.devices.length; i++) {
@@ -182,8 +86,5 @@
              ng-change="volumeChanged()" />
   </div>
 </div>
-<!--<div id="list">
-  
-</div>-->
 </body>
 </html>

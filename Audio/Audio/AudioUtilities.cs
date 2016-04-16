@@ -41,7 +41,7 @@ namespace Audio
 
 		public static IAudioSessionManager2 GetAudioSessionManager()
 		{
-			IMMDevice speakers = GetSpeakers();
+			IMMDevice speakers = GetCurrentSpeakers();
 			if (speakers == null)
 				return null;
 
@@ -55,7 +55,7 @@ namespace Audio
 
 		public static IAudioEndpointVolume GetAudioEndpointVolume(IMMDevice device = null)
 		{
-			IMMDevice speakers = device ?? GetSpeakers();
+			IMMDevice speakers = device ?? GetCurrentSpeakers();
 			if (speakers == null)
 				return null;
 
@@ -69,7 +69,7 @@ namespace Audio
 
 		public static Win32AudioDevice GetSpeakersDevice()
 		{
-			return CreateDevice(GetSpeakers());
+			return CreateDevice(GetCurrentSpeakers());
 		}
 
 		public static Win32AudioDevice CreateDevice(IMMDevice dev)
@@ -147,7 +147,7 @@ namespace Audio
 			return list;
 		}
 
-		public static IMMDevice GetSpeakers()
+		public static IMMDevice GetCurrentSpeakers()
 		{
 			// get the speakers (1st render + multimedia) device
 			try

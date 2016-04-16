@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PC-Volume-Controller", "PC-Volume-Controller\PC-Volume-Controller.csproj", "{9EC12D5E-5D44-4827-8B1C-95AD2B3D5FF0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audio", "..\Audio\Audio\Audio.csproj", "{BF5BABD1-3880-44A0-B1B4-59A7134330BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PC-Volume-Control.Test", "PC-Volume-Control.Test\PC-Volume-Control.Test.csproj", "{CBF08310-7098-4A1D-8058-3A227DCC1855}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audio.Test", "Audio.Test\Audio.Test.csproj", "{34232DFD-BF65-4A6F-AE97-645E15628EF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{BF5BABD1-3880-44A0-B1B4-59A7134330BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF5BABD1-3880-44A0-B1B4-59A7134330BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF5BABD1-3880-44A0-B1B4-59A7134330BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBF08310-7098-4A1D-8058-3A227DCC1855}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF08310-7098-4A1D-8058-3A227DCC1855}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF08310-7098-4A1D-8058-3A227DCC1855}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF08310-7098-4A1D-8058-3A227DCC1855}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34232DFD-BF65-4A6F-AE97-645E15628EF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34232DFD-BF65-4A6F-AE97-645E15628EF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34232DFD-BF65-4A6F-AE97-645E15628EF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34232DFD-BF65-4A6F-AE97-645E15628EF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
