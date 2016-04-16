@@ -5,9 +5,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
   <script src="/Content/ng-knob.js"></script>
-  <link rel="stylesheet" type="text/css" href="/Content/site.css"></script>
+  <link rel="stylesheet" type="text/css" href="/Content/site.css" />
+  <link rel="shortcut icon" type="image/png" href="/Content/favicon.png"/>
   <meta charset="utf-8"/>
-  <title>PC Volume Controller</title>
+  <title>PC Volume Controller</title>  
 </head>
 <body>
 <script>

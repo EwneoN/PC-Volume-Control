@@ -89,6 +89,9 @@
     <Content Include="Content\Site.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\favicon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Index.sshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
