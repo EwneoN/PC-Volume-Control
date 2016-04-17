@@ -3,7 +3,7 @@ A small web service for controlling of the volume and default playback device of
 
 This application uses Nancy for providing the HTTP endpoint and managing authentication. 
 
-The UI is made using a modified forked of the ng-knob AngularJS directive developed by RadMie. The original repo can be found here https://github.com/RadMie/ng-knob and my fork can be found here https://github.com/EwneoN/ng-knob.
+The UI is made using a modified forked of the ng-knob AngularJS directive developed by RadMie. The original repo can be found here https://github.com/RadMie/ng-knob and my fork used in this project can be found here https://github.com/EwneoN/ng-knob.
 
 The Audio library is a library I have made using a few different pieces of code that I found when I was serching on how to control Windows audio devices with C#. More information on this library can be found here https://github.com/EwneoN/PC-Volume-Control/tree/master/Audio.
 
