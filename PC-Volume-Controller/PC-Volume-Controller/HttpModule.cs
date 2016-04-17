@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -6,16 +7,24 @@ using Nancy;
 using Nancy.ModelBinding;
 using Audio;
 using Nancy.Responses.Negotiation;
+using Nancy.Security;
+using static PC_Volume_Controller.Constants;
 
 namespace PC_Volume_Controller
 {
   /// <summary>
   /// A HttpModule class for controlling the current volume and default audio device on the host machine via a web browser or
-  /// another application.
+  /// another application. If Authenication is required all routes excluding the dummy routes will be secured.
   /// </summary>
-  /// <seealso cref="NancyModule" />
+  /// <seealso cref="Nancy.NancyModule" />
   public class HttpModule : NancyModule
   {
+    #region Fields
+
+    private readonly bool _AuthenticateUser;
+
+    #endregion
+
     #region Constructors
 
     /// <summary>
@@ -23,6 +32,14 @@ namespace PC_Volume_Controller
     /// </summary>
     public HttpModule()
     {
+      _AuthenticateUser = bool.Parse(ConfigurationManager.AppSettings["AuthenticateUser"] ?? "false");
+      string httpProtocol = ConfigurationManager.AppSettings["HttpProtocol"] ?? DEFAULT_HTTP_PROTOCOL;
+      
+      if(httpProtocol.ToLower() == "https")
+      {
+        this.RequiresHttps();
+      }
+
       Get["/"] = o => Index();
       Get["/Dummy"] = o => DummyIndex();
 
@@ -78,7 +95,7 @@ namespace PC_Volume_Controller
       {
         Volume = "75",
         Devices = $"[{string.Join(",", devices.Select(MakeJavaScriptObjectString))}]",
-        KnobOptions = $"{FormatJson(file)}"
+        KnobOptions = $"{JsonToJavaScriptObject(file)}"
       };
        
       return View["Index", model];
@@ -91,6 +108,11 @@ namespace PC_Volume_Controller
     /// <returns>Content\Index.html with live values.</returns>
     public Negotiator Index()
     {
+      if (_AuthenticateUser)
+      {
+        this.RequiresAuthentication();
+      }
+
       float volume = GetCurrentVolume();
       AudioDeviceList devices = GetAudioDeviceList();
       string file = File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"Content\ng-knob-options.json"));
@@ -98,7 +120,7 @@ namespace PC_Volume_Controller
       {
         Volume = volume.ToString(),
         Devices = $"[{string.Join(",", devices.Select(MakeJavaScriptObjectString))}]",
-        KnobOptions = $"{FormatJson(file)}"
+        KnobOptions = $"{JsonToJavaScriptObject(file)}"
       };
 
       return View["Index", model];
@@ -110,6 +132,11 @@ namespace PC_Volume_Controller
     /// <returns></returns>
     public VolumeData GetVolume()
     {
+      if (_AuthenticateUser)
+      {
+        this.RequiresAuthentication();
+      }
+
       VolumeData info = new VolumeData
       {
         Volume = GetCurrentVolume()
@@ -147,6 +174,11 @@ namespace PC_Volume_Controller
     /// <returns></returns>
     public HttpStatusCode SetVolume()
     {
+      if (_AuthenticateUser)
+      {
+        this.RequiresAuthentication();
+      }
+
       bool succes;
 
       try
@@ -175,6 +207,11 @@ namespace PC_Volume_Controller
     /// <returns></returns>
     public AudioDeviceList GetPlaybackDevices()
     {
+      if (_AuthenticateUser)
+      {
+        this.RequiresAuthentication();
+      }
+
       return GetAudioDeviceList();
     }
 
@@ -213,6 +250,11 @@ namespace PC_Volume_Controller
     /// <returns></returns>
     public AudioDevice GetDefaultPlaybackDevice()
     {
+      if (_AuthenticateUser)
+      {
+        this.RequiresAuthentication();
+      }
+
       return GetCurrentDevice();
     }
 
@@ -222,6 +264,11 @@ namespace PC_Volume_Controller
     /// <returns></returns>
     public HttpStatusCode SetDefaultPlaybackDevice()
     {
+      if (_AuthenticateUser)
+      {
+        this.RequiresAuthentication();
+      }
+
       bool succes;
 
       try
@@ -325,11 +372,19 @@ namespace PC_Volume_Controller
              "}";
     }
 
-    private string FormatJson(string json)
+    /// <summary>
+    /// Formats a json string into a JavaScript object for use in a HTML document.
+    /// This is done so we don't have to deserialise the json client side for use in the scripts.
+    /// </summary>
+    /// <param name="json">The string containing the json.</param>
+    /// <returns>A string containing the formatted JavaScript object</returns>
+    private string JsonToJavaScriptObject(string json)
     {
+      // we want to remove any quotation around property names but make sure we leave them around property values
       Regex regex1 = new Regex("(?i)\"(?=(\\s*:+))|(?<=(\\{|,)\\s*)\"(?=[a-zA-Z_][a-zA-Z0-9_])(?-i)");
       Regex regex2 = new Regex("(?<=(\\{|,|:))\\s+");
 
+      //we also get rid of new lines and tabs. makes for a long lined var declaration in Index.sshtml but is prettier than alt
       string newJson = regex1.Replace(json, string.Empty).Replace("\r", "").Replace("\n", "").Replace("\t", "");
 
       return regex2.Replace(newJson, "");

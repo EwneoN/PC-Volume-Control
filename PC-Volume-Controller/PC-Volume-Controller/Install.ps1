@@ -9,8 +9,6 @@ param(
 )
 
 $binPath = Join-Path -path $PWD -childpath "\Pc-Volume-Controller.exe"
-echo $binPath
-
 $userParams = ''
 
 If(![string]::IsNullOrWhiteSpace($user))
@@ -30,6 +28,5 @@ If(![string]::IsNullOrWhiteSpace($userParams))
   $cmdLine += $userParams
 }
 
-echo $cmdLine
 Invoke-Expression $cmdLine
 Exit

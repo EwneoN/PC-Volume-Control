@@ -2,7 +2,7 @@
 {
 	public class AudioDevice
 	{
-    #region Variables
+    #region Fields
 
     private string _Id;
     private string _Name;

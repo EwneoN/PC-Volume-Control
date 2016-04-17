@@ -3,8 +3,10 @@ using System.Configuration;
 using System.IO;
 using System.ServiceProcess;
 using Nancy;
+using Nancy.Bootstrapper;
 using Nancy.Conventions;
 using Nancy.Hosting.Self;
+using PC_Volume_Controller.Authentication;
 using static System.DateTime;
 using static PC_Volume_Controller.Constants;
 
@@ -12,7 +14,7 @@ namespace PC_Volume_Controller
 {
   public partial class PcVolumeControlService : ServiceBase
   {
-    #region Variables
+    #region Fields
 
     private NancyHost _NancyHost;
 
@@ -55,14 +57,17 @@ namespace PC_Volume_Controller
       Uri uri = new Uri($"{protocol}://{host}{port}{rootPath}");
 
       string autoCreateUrlReservations = ConfigurationManager.AppSettings["AutoCreateUrlReservations"];
-      string user = ConfigurationManager.AppSettings["User"];
+      string serviceUser = ConfigurationManager.AppSettings["ServiceUser"];
+      bool authUser = bool.Parse(ConfigurationManager.AppSettings["AuthenticateUser"] ?? DEFAULT_AUTHENTICATE_USER);
 
-      NancyHost nancyHost = new NancyHost(uri, new DefaultNancyBootstrapper(), new HostConfiguration
+      INancyBootstrapper bootstrapper = authUser ? new AuthenticationBootstrapper() : new DefaultNancyBootstrapper();
+
+      NancyHost nancyHost = new NancyHost(uri, bootstrapper, new HostConfiguration
       {
         UrlReservations =
         {
           CreateAutomatically = bool.Parse(autoCreateUrlReservations ?? DEFAULT_AUTO_CREATE_URL_RESERVATIONS),
-          User = user ?? DEFAULT_USER
+          User = serviceUser ?? DEFAULT_SERVICE_USER
         }
       });
 
