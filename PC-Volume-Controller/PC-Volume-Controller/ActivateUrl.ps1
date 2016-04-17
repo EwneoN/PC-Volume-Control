@@ -8,7 +8,7 @@
 #
 param(
   [parameter(Mandatory=$true)][string]$url,
-  [parameter(Mandatory=$true)][string]$user
+  [string]$user
 )
 
 If([string]::IsNullOrWhiteSpace($url))
@@ -18,7 +18,7 @@ If([string]::IsNullOrWhiteSpace($url))
 
 If([string]::IsNullOrWhiteSpace($user))
 {
-   echo 'user cannot be null, empty or whitespace'
+   $user = 'Everyone'
 }
 
 $cmdLine = 'netsh http add urlacl url="{0}" user="{1}"' -f $url, $user

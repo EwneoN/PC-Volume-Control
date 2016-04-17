@@ -57,7 +57,7 @@ namespace PC_Volume_Controller
       Uri uri = new Uri($"{protocol}://{host}{port}{rootPath}");
 
       string autoCreateUrlReservations = ConfigurationManager.AppSettings["AutoCreateUrlReservations"];
-      string serviceUser = ConfigurationManager.AppSettings["ServiceUser"];
+      string urlUser = ConfigurationManager.AppSettings["UrlUser"];
       bool authUser = bool.Parse(ConfigurationManager.AppSettings["AuthenticateUser"] ?? DEFAULT_AUTHENTICATE_USER);
 
       INancyBootstrapper bootstrapper = authUser ? new AuthenticationBootstrapper() : new DefaultNancyBootstrapper();
@@ -67,7 +67,7 @@ namespace PC_Volume_Controller
         UrlReservations =
         {
           CreateAutomatically = bool.Parse(autoCreateUrlReservations ?? DEFAULT_AUTO_CREATE_URL_RESERVATIONS),
-          User = serviceUser ?? DEFAULT_SERVICE_USER
+          User = urlUser ?? DEFAULT_SERVICE_USER
         }
       });
 
