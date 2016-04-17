@@ -28,10 +28,20 @@
     /// </summary>
     private void InitializeComponent()
     {
-      components = new System.ComponentModel.Container();
+      this.Controller = new System.ServiceProcess.ServiceController();
+      // 
+      // Controller
+      // 
+      this.Controller.ServiceName = "PcVolumeControlService";
+      // 
+      // PcVolumeControlService
+      // 
       this.ServiceName = "PcVolumeControlService";
+
     }
 
     #endregion
+
+    private System.ServiceProcess.ServiceController Controller;
   }
 }

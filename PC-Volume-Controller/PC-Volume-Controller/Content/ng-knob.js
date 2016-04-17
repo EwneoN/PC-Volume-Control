@@ -1,3 +1,4 @@
+//original autor
 /*******************************************************
  * Name:          ng-knob
  * Description:   Angular.js Knob directive
@@ -5,6 +6,16 @@
  * Homepage:      https://radmie.github.io/ng-knob
  * Licence:       MIT
  *******************************************************/
+
+//forking autor
+/*******************************************************
+ * Name:          ng-knob
+ * Description:   Angular.js Knob directive
+ * Version:       0.1.2
+ * Homepage:      https://github.com/EwneoN/ng-knob
+ * Licence:       MIT
+ *******************************************************/
+
 "use strict";
 
 (function() {

@@ -2,27 +2,37 @@
 {
 	public class AudioDevice
 	{
-		private string _Id;
-		private string _Name;
-		private bool _IsCurrentDevice;
+    #region Fields
 
-		public string Id
-		{
-			get { return _Id; }
-			set { _Id = value; }
-		}
+    private string _Id;
+    private string _Name;
+    private bool _IsCurrentDevice;
 
-		public string Name
-		{
-			get { return _Name; }
-			set { _Name = value; }
-		}
+    #endregion
 
-		public bool IsCurrentDevice
-		{
-			get { return _IsCurrentDevice; }
-			set { _IsCurrentDevice = value; }
-		}
+    #region Properties
+
+    public string Id
+    {
+      get { return _Id; }
+      set { _Id = value; }
+    }
+
+    public string Name
+    {
+      get { return _Name; }
+      set { _Name = value; }
+    }
+
+    public bool IsCurrentDevice
+    {
+      get { return _IsCurrentDevice; }
+      set { _IsCurrentDevice = value; }
+    }
+
+    #endregion
+
+    #region Constructors
 
     public AudioDevice() { }
 
@@ -38,5 +48,7 @@
       _Name = device.InterfaceFriendlyName;
       _IsCurrentDevice = isCurrentDevice;
     }
-	}
+
+    #endregion
+  }
 }
